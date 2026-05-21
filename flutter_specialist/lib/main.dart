@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_specialist/mobx/counter_mobx_service.dart';
+import 'package:flutter_specialist/getx/getx_page.dart';
+import 'package:flutter_specialist/mobx/counter_mobx_codegen_service.dart';
 import 'package:flutter_specialist/mobx/mobx_page.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -12,12 +14,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Specialist',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: MultiProvider(
         providers: [
-          Provider<CounterMobxService>(create: (_) => CounterMobxService()),
+          Provider<CounterMobxCodegenService>(create: (_) => CounterMobxCodegenService()),
         ],
         builder: (context, widget) {
           return const Menu();
@@ -57,13 +59,26 @@ class Menu extends StatelessWidget {
                           mainContext,
                           MaterialPageRoute(
                             builder: (context) => Mobx(
-                              counterMobxService: mainContext
-                                  .read<CounterMobxService>(),
+                              service: mainContext
+                                  .read<CounterMobxCodegenService>(),
                             ),
                           ),
                         );
                       },
                       child: const Text('Go to MobX'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Get.to(() => const GetxPage());
+                      },
+                      child: const Text('Go to GetX'),
                     ),
                   ),
                 ],

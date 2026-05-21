@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_specialist/mobx/counter_mobx_service.dart';
+import 'package:flutter_specialist/mobx/counter_mobx_codegen_service.dart';
 
 class Mobx extends StatelessWidget {
-  final CounterMobxService counterMobxService;
+  final CounterMobxCodegenService service;
 
-  const Mobx({super.key, required this.counterMobxService});
+  const Mobx({super.key, required this.service});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +18,15 @@ class Mobx extends StatelessWidget {
             const SizedBox(height: 16),
             Observer(
               builder: (context) {
-                return Text('Counter value: ${counterMobxService.value}');
+                return Text('Counter value: ${service.counter}');
               }
             ),
             const SizedBox(height: 16),
             TextButton(onPressed: () {
-              counterMobxService.increment();
+              service.increment();
             }, child: const Text('Increment')),
             TextButton(onPressed: () {
-              counterMobxService.reset();
+              service.reset();
             }, child: const Text('Reset')),
           ],
         ),
